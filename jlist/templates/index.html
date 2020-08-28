@@ -1,0 +1,31 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <div class="row">
+        <div class="col">
+            <h2>Add Item</h2>
+            <form class="form-inline" action="add_todo" method="post">
+                {% csrf_token %}
+                <input type="text" name="content" class="form-control mb-2" id="inlineFormInput" placeholder="Type here ...">
+                <button type="submit" class="btn btn-primary mb-2">Submit</button>
+            </form>
+        </div>
+    </div>
+<div class="row">
+    <div class="col">
+        <ul class="list-group">
+            {% for todo in todo_list %}
+            <li class="list-group-item active">{{todo.text_list}} - Date - {{ todo.current_date }}
+                <div class="float-right">
+                    <form action="delete_todo/{{ todo.id }}/ " method="post">
+                        {% csrf_token %}
+                        <button type="submit" class="btn btn-sm btn-danger">Delete</button>
+                    </form>
+                </div>
+            </li>
+
+            {% endfor %}
+        </ul>
+    </div>
+</div>
+{% endblock %}
